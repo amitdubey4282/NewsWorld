@@ -26,11 +26,13 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch(
-      'http://api.nytimes.com/svc/topstories/v2/home.json?api-key=52512f75704c4b7f853eac0646de1e5c'
-    )
-      .then(response => response.json())
-      .then(data => this.props.saveNews(data));
+
+    this.props.saveNews();
+  
+    if(this.props.newsdata){
+      this.filterCategory();
+    }
+      
   }
   activateLasers(e, url) {
     window.open(url, '_blank');
@@ -41,16 +43,10 @@ class App extends Component {
     this.setState({ SportsNewsFlag: !this.state.SportsNewsFlag });
   }
   render() {
-    setTimeout(() => {
-      this.setState({ wait: true });
-    }, 3000);
-
-    if (this.state.wait) {
-      this.filterCategory();
-    }
-
-    // this.filterCategory();
-  
+ 
+  if(this.props.newsdata){
+    this.filterCategory();
+  }
     const divStyle = {
       margin: '40px'
     };
@@ -109,8 +105,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveNews: data => {
-      dispatch(saveNews(data));
+    saveNews: () => {
+      dispatch(saveNews());
     }
   };
 };
