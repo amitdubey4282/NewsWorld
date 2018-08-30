@@ -7,8 +7,7 @@ import newsHandling from './reducers/Index';
 class App extends Component {
   state = {
     USnewsflag: false,
-    SportsNewsFlag: true,
-    wait: false
+    SportsNewsFlag: true
   };
 
   //var apikey='52512f75704c4b7f853eac0646de1e5c';
@@ -25,28 +24,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });
-
     this.props.saveNews();
-  
-    if(this.props.newsdata){
-      this.filterCategory();
-    }
-      
   }
   activateLasers(e, url) {
     window.open(url, '_blank');
   }
   toggleNews(e) {
-    console.log(e)
+    console.log(e);
     this.setState({ USnewsflag: !this.state.USnewsflag });
     this.setState({ SportsNewsFlag: !this.state.SportsNewsFlag });
   }
   render() {
- 
-  if(this.props.newsdata){
-    this.filterCategory();
-  }
+    if (this.props.newsdata) {
+      this.filterCategory();
+    }
     const divStyle = {
       margin: '40px'
     };
@@ -71,10 +62,9 @@ class App extends Component {
           style={{ marginLeft: 60, backgroundColor: 'pink' }}
           onClick={e => this.toggleNews(e)}
         >
-        Change news Category
+          Change news Category
         </button>
 
-        
         <ul>
           {this.toFetch &&
             this.toFetch.map(data => {
@@ -86,7 +76,6 @@ class App extends Component {
                     <button onClick={e => this.activateLasers(e, data.url)}>
                       Acesss The full News
                     </button>
-
                   </li>
                 </div>
               );
