@@ -1,5 +1,5 @@
-export const  SAVE_NEWS = 'SAVE_NEWS';
-
+export const SAVE_ALLSHOWS = 'SAVE_ALLSHOWS';
+export const SEARCH_SHOWS = 'SEARCH_SHOWS';
 /*export default function saveNews(news){
   return{
     type: SAVE_NEWS,
@@ -7,18 +7,22 @@ export const  SAVE_NEWS = 'SAVE_NEWS';
   }
 } */
 
-
-export  default  function saveNews (){
-
-  return (dispatch)=> {
-
-    fetch(
-      'http://api.nytimes.com/svc/topstories/v2/home.json?api-key=52512f75704c4b7f853eac0646de1e5c'
-    )
+export  default function saveAllShows() {
+  return dispatch => {
+    fetch('http://api.tvmaze.com/shows')
       .then(response => response.json())
-      .then(news => { dispatch({type: SAVE_NEWS,news})});
-    
-  }
+      .then(shows => {
+        dispatch({ type: SAVE_ALLSHOWS, shows });
+      });
+  };
 }
 
-
+export function searchShows(query) {
+  return dispatch => {
+    fetch('http://api.tvmaze.com/search/shows?q=' + query + '')
+      .then(response => response.json())
+      .then(shows => {
+        dispatch({ type: SEARCH_SHOWS, shows });
+      });
+  };
+}

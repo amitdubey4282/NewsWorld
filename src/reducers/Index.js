@@ -1,14 +1,21 @@
-import { SAVE_NEWS } from '../action/Index';
+import { SAVE_ALLSHOWS } from '../action/Index';
+import { SEARCH_SHOWS } from '../action/Index';
 
-function newsHandling(state = {}, action) {
+function handleShows(state = {}, action) {
   switch (action.type) {
-    case SAVE_NEWS:
+    case SAVE_ALLSHOWS:
       return Object.assign({}, state, {
-        newsdata: action.news
+        allShows: action.shows
       });
+
+    case SEARCH_SHOWS:
+      return Object.assign({}, state, {
+        searchedShows: action.shows
+      });
+
     default:
       return state;
   }
 }
 
-export default newsHandling;
+export default handleShows;
